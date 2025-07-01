@@ -1,0 +1,276 @@
+:root {
+    --background-overlay: rgba(255, 255, 255, 0.8);
+    --button-bg: #e0e0e0;
+    --button-text: #333;
+    --screen-bg: #f0f0f0;
+    --screen-text: #000;
+}
+
+/* Fade-in animation for calculator UI */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Calculator Container */
+.container {
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    gap: 15px;
+    background-color: var(--background-overlay);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Screen */
+#screen {
+    grid-column: span 4;
+    height: 50px;
+    margin-bottom: 15px;
+    font-size: 24px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    text-align: right;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Buttons */
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+    background-color: #d1d1d1;
+    transform: scale(1.05);
+    box-shadow: 0 5px 5px rgba(0, 128, 0, 0.3);
+}
+
+/* Special Buttons */
+button.operator {
+    background-color: #ff9500;
+    color: white;
+}
+button.operator:hover {
+    background-color: #e08b00;
+}
+button.equal {
+    background-color: #34c759;
+    color: white;
+}
+button.equal:hover {
+    background-color: #28a745;
+}
+button.clear {
+    background-color: #ff3b30;
+    color: white;
+}
+button.clear:hover {
+    background-color: #d6302b;
+}
+
+/* Theme Menu */
+.theme-wrapper {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+}
+.theme-toggle {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.theme-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 240px;
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    gap: 10px;
+    animation: slideDownFade 0.3s ease-out;
+}
+
+/* Theme Rows */
+.theme-row {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #aaa transparent;
+}
+.theme-row::-webkit-scrollbar {
+    height: 6px;
+}
+.theme-row::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 3px;
+}
+.theme-row::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Theme Tiles */
+.theme-tile {
+    width: 35px;
+    height: 35px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.theme-tile:hover {
+    border-color: #333;
+    transform: scale(1.1);
+}
+
+/* Theme Backgrounds */
+.theme-color-1 { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.theme-color-2 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+.theme-color-3 { background: linear-gradient(135deg, #f6d365, #fda085); }
+.theme-color-4 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+.theme-color-5 { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+.theme-color-6 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+.theme-color-7 { background: linear-gradient(135deg, #667eea, #764ba2); }
+.theme-color-8 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.theme-color-9 { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+
+.theme-image-1 { background-image: url('theme1.jpg'); }
+.theme-image-2 { background-image: url('theme2.jpg'); }
+.theme-image-3 { background-image: url('theme3.jpg'); }
+.theme-image-4 { background-image: url('theme4.jpg'); }
+.theme-image-5 { background-image: url('theme5.jpg'); }
+
+/* Responsive: Mobile layout */
+@media (max-width: 719px) {
+    body {
+        padding: 10px;
+        justify-content: flex-start;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    #screen {
+        font-size: 18px;
+        height: 45px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .theme-wrapper {
+        position: static;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .theme-toggle {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .theme-popup {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        overflow-x: auto;
+        flex-direction: column;
+    }
+
+    .theme-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 10px;
+    }
+
+    .theme-tile {
+        flex: 0 0 auto;
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+    }
+
+    h1 {
+        font-size: 22px;
+        text-align: center;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDownFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

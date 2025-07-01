@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Sreenivasulu">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="description" content="Free Web tutorials">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link class="demo" rel="icon" type="image" href="editedLogo.PNG">
+    <link rel="stylesheet" href="mystylesheet.css">
+</head>
+<body class="fade-in">
+    <div class="theme-wrapper">
+        <button class="theme-toggle" id="theme-button">Themes</button>
+        <div class="theme-popup" id="theme-popup">
+            <div class="theme-row">
+                <!-- Color Themes -->
+                <div class="theme-tile theme-color-1"></div>
+                <div class="theme-tile theme-color-2"></div>
+                <div class="theme-tile theme-color-3"></div>
+                <div class="theme-tile theme-color-4"></div>
+                <div class="theme-tile theme-color-5"></div>
+                <div class="theme-tile theme-color-6"></div>
+                <div class="theme-tile theme-color-7"></div>
+                <div class="theme-tile theme-color-8"></div>
+                <div class="theme-tile theme-color-9"></div>
+            </div>
+            <div class="theme-row">
+                <!-- Image Themes -->
+                <div class="theme-tile theme-image-1"></div>
+                <div class="theme-tile theme-image-2"></div>
+                <div class="theme-tile theme-image-3"></div>
+                <div class="theme-tile theme-image-4"></div>
+                <div class="theme-tile theme-image-5"></div>
+            </div>
+        </div>
+    </div>
+
+    <h1>Simple Calculator</h1>
+    <div class="container">
+        <input type="text" id="screen">
+        <div class="grid-container">
+            <button onclick="func('1')">1</button>
+            <button onclick="func('2')">2</button>
+            <button onclick="func('3')">3</button>
+            <button class="operator" onclick="func('/')">/</button>
+
+            <button onclick="func('4')">4</button>
+            <button onclick="func('5')">5</button>
+            <button onclick="func('6')">6</button>
+            <button class="operator" onclick="func('*')">*</button>
+
+            <button onclick="func('7')">7</button>
+            <button onclick="func('8')">8</button>
+            <button onclick="func('9')">9</button>
+            <button class="operator" onclick="func('+')">+</button>
+
+            <button onclick="func('0')">0</button>
+            <button class="clear" onclick="cleardisplay()">C</button>
+            <button class="equal" onclick="calculate()">=</button>
+            <button class="operator" onclick="func('-')">-</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById("screen");
+
+        function func(x) {
+            display.value += x;
+        }
+
+        function cleardisplay() {
+            display.value = "";
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = "Error";
+            }
+        }
+
+        // Theme functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeButton = document.getElementById("theme-button");
+            const themePopup = document.getElementById("theme-popup");
+            const themeTiles = document.querySelectorAll(".theme-tile");
+
+            themeButton.addEventListener("click", function () {
+                themePopup.style.display = themePopup.style.display === "flex" ? "none" : "flex";
+                themePopup.classList.toggle("popup-visible");
+            });
+
+            themeTiles.forEach(tile => {
+                tile.addEventListener("click", function () {
+                    const style = getComputedStyle(tile);
+                    const bgImage = style.backgroundImage;
+                    const bg = style.background;
+
+                    // Reset body background
+                    document.body.style.background = "";
+                    document.body.style.backgroundImage = "none";
+
+                    if (bgImage && bgImage !== "none") {
+                        document.body.style.backgroundImage = bgImage;
+                        document.body.style.backgroundSize = "cover";
+                        document.body.style.backgroundPosition = "center";
+                        document.body.style.backgroundRepeat = "no-repeat";
+                    } else if (bg && bg !== "none") {
+                        document.body.style.background = bg;
+                    }
+
+                    themePopup.style.display = "none";
+                    themePopup.classList.remove("popup-visible");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
