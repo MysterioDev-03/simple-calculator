@@ -7,7 +7,6 @@ A clean, responsive web-based calculator built using **HTML, CSS, and JavaScript
 - **Theme selector** with both color gradients and image backgrounds
 - Mobile-friendly layout
 
-![Calculator Screenshot](./assets/screenshot.png)
 
 ---
 
